@@ -1,0 +1,28 @@
+//*********************************************************
+// hal_apl NOTE
+//*********************************************************
+
+(1) 新規のModuleの追加
+	hal.c以外に新規のSource_Module(~.c) を作成する場合は、[Makefile]にそのObject名(~.o)
+    を追加する。 hal_extention.c には入れない事。
+    154行目：
+	#  -----------------------------------------------------------------------------
+	#  (角田) hal_apl フォルダに 追加のUser_Module(OBJ)があれば、ここに追記 
+	#         区切りはspace 又は \で次行に継続 (\の後にはCommentも書けないので注意)
+	APPL_COBJS := $(APPL_COBJS) hal_extention.o 	\
+								srvr_com.o			\
+								user_task1.o 		\
+								user_task2.o 		\
+								user_task3.o 
+	#  -----------------------------------------------------------------------------
+	
+	また追加Moduleに関係するHeaderFile(~.h)があれば、それも各自で作成。
+	hal.h や hal_extention.h には記述しない事。
+
+(2) #include の順序
+	APLでのHeaderFile指定順序は、必ず次のようにする事。
+	#include  kernel_cfg.h       // Toppers Kernel Config Header
+	#include "hal.h"             // Toppers Header
+	#include "hal_extention.h"   // Toppers HAL_Extention Header
+	#include "各自作成のHeader.h"
+
